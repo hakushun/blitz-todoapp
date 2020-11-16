@@ -7,21 +7,24 @@ const NewTodoPage: BlitzPage = () => {
   const router = useRouter()
   const [createTodoMutation] = useMutation(createTodo)
 
+  const handleSubmit = async (value: { title: string }) => {
+    const { title } = value;
+    try {
+      const todo = await createTodoMutation({ data: { title } })
+      alert("Success!" + JSON.stringify(todo))
+      router.push(`/todos/${todo.id}`)
+    } catch (error) {
+      alert("Error creating todo " + JSON.stringify(error, null, 2))
+    }
+  }
+
   return (
     <div>
       <h1>Create New Todo</h1>
 
       <TodoForm
-        initialValues=""
-        onSubmit={async (title) => {
-          try {
-            const todo = await createTodoMutation({ data: { title } })
-            alert("Success!" + JSON.stringify(todo))
-            router.push(`/todos/${todo.id}`)
-          } catch (error) {
-            alert("Error creating todo " + JSON.stringify(error, null, 2))
-          }
-        }}
+        initialValues={{title: ""}}
+        onSubmit={handleSubmit}
       />
 
       <p>

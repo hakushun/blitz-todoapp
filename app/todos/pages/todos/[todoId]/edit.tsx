@@ -13,27 +13,30 @@ export const EditTodo = () => {
   const [todo, { setQueryData }] = useQuery(getTodo, { where: { id: todoId, userId: currentUser?.id } })
   const [updateTodoMutation] = useMutation(updateTodo)
 
+  const handleSubmit = async (value: { title: string }) => {
+    const { title } = value;
+    try {
+      const updated = await updateTodoMutation({
+        where: { id: todo.id },
+        data: { title },
+      })
+      await setQueryData(updated)
+      alert("Success!" + JSON.stringify(updated))
+      router.push(`/todos/${updated.id}`)
+    } catch (error) {
+      console.log(error)
+      alert("Error creating todo " + JSON.stringify(error, null, 2))
+    }
+  }
+
   return (
     <div>
       <h1>Edit Todo {todo.id}</h1>
       <pre>{JSON.stringify(todo)}</pre>
 
       <TodoForm
-        initialValues={todo.title}
-        onSubmit={async (title) => {
-          try {
-            const updated = await updateTodoMutation({
-              where: { id: todo.id },
-              data: { title },
-            })
-            await setQueryData(updated)
-            alert("Success!" + JSON.stringify(updated))
-            router.push(`/todos/${updated.id}`)
-          } catch (error) {
-            console.log(error)
-            alert("Error creating todo " + JSON.stringify(error, null, 2))
-          }
-        }}
+        initialValues={{title: todo.title}}
+        onSubmit={handleSubmit}
       />
     </div>
   )
