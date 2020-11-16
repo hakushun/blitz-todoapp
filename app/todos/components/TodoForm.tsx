@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 type TodoFormProps = {
   initialValues: string
@@ -6,6 +6,12 @@ type TodoFormProps = {
 }
 
 const TodoForm = ({ initialValues, onSubmit }: TodoFormProps) => {
+  const [title, setTitle] = useState<string>(initialValues)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+  }
+
   return (
     <form
       onSubmit={(event) => {
