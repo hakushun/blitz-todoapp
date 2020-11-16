@@ -17,12 +17,12 @@ export const EditTodo = () => {
       <pre>{JSON.stringify(todo)}</pre>
 
       <TodoForm
-        initialValues={todo}
-        onSubmit={async () => {
+        initialValues={todo.title}
+        onSubmit={async (title) => {
           try {
             const updated = await updateTodoMutation({
               where: { id: todo.id },
-              data: { name: "MyNewName" },
+              data: { title },
             })
             await setQueryData(updated)
             alert("Success!" + JSON.stringify(updated))
