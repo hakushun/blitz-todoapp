@@ -45,6 +45,11 @@ export const TodosList = () => {
 const TodosPage: BlitzPage = () => {
   return (
     <div>
+            <p>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </p>
       <p>
         <Link href="/todos/new">
           <a>Create Todo</a>
