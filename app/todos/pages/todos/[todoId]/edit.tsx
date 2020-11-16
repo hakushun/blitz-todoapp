@@ -4,11 +4,13 @@ import { Link, useRouter, useQuery, useMutation, useParam, BlitzPage } from "bli
 import getTodo from "app/todos/queries/getTodo"
 import updateTodo from "app/todos/mutations/updateTodo"
 import TodoForm from "app/todos/components/TodoForm"
+import { useCurrentUser } from "app/hooks/useCurrentUser"
 
 export const EditTodo = () => {
   const router = useRouter()
+  const currentUser = useCurrentUser()
   const todoId = useParam("todoId", "number")
-  const [todo, { setQueryData }] = useQuery(getTodo, { where: { id: todoId } })
+  const [todo, { setQueryData }] = useQuery(getTodo, { where: { id: todoId, userId: currentUser?.id } })
   const [updateTodoMutation] = useMutation(updateTodo)
 
   return (
