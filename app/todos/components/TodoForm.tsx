@@ -16,11 +16,13 @@ const TodoForm = ({ initialValues, onSubmit }: TodoFormProps) => {
     <form
       onSubmit={(event) => {
         event.preventDefault()
-        onSubmit(event)
+        onSubmit(title)
       }}
     >
       <div>Put your form fields here. But for now, just click submit</div>
-      <div>{JSON.stringify(initialValues)}</div>
+      <div>
+        <input type="text" value={title} onChange={handleChange} />
+      </div>
       <button>Submit</button>
     </form>
   )
