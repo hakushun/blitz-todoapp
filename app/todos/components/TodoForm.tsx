@@ -1,8 +1,8 @@
 import React from "react"
 
 type TodoFormProps = {
-  initialValues: any
-  onSubmit: React.FormEventHandler<HTMLFormElement>
+  initialValues: string
+  onSubmit: (title: string) => void
 }
 
 const TodoForm = ({ initialValues, onSubmit }: TodoFormProps) => {
