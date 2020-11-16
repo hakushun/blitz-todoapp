@@ -2,13 +2,16 @@ import { Suspense } from "react"
 import Layout from "app/layouts/Layout"
 import { Link, usePaginatedQuery, useRouter, BlitzPage } from "blitz"
 import getTodos from "app/todos/queries/getTodos"
+import { useCurrentUser } from "app/hooks/useCurrentUser"
 
 const ITEMS_PER_PAGE = 100
 
 export const TodosList = () => {
   const router = useRouter()
+  const currentUser = useCurrentUser()
   const page = Number(router.query.page) || 0
   const [{ todos, hasMore }] = usePaginatedQuery(getTodos, {
+    where: { user: currentUser },
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
