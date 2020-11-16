@@ -3,11 +3,13 @@ import Layout from "app/layouts/Layout"
 import { Link, useRouter, useQuery, useParam, BlitzPage, useMutation } from "blitz"
 import getTodo from "app/todos/queries/getTodo"
 import deleteTodo from "app/todos/mutations/deleteTodo"
+import { useCurrentUser } from "app/hooks/useCurrentUser"
 
 export const Todo = () => {
   const router = useRouter()
+  const currentUser = useCurrentUser()
   const todoId = useParam("todoId", "number")
-  const [todo] = useQuery(getTodo, { where: { id: todoId } })
+  const [todo] = useQuery(getTodo, { where: { id: todoId, userId: currentUser?.id } })
   const [deleteTodoMutation] = useMutation(deleteTodo)
 
   return (
