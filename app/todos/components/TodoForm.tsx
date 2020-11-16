@@ -1,30 +1,30 @@
-import React, { useState } from "react"
+import React from "react"
+import { Field, Form, FormProps } from "react-final-form"
 
 type TodoFormProps = {
-  initialValues: string
-  onSubmit: (title: string) => void
+  initialValues: FormProps["initialValues"]
+  onSubmit: (value: { title: string }) => Promise<void>
 }
 
 const TodoForm = ({ initialValues, onSubmit }: TodoFormProps) => {
-  const [title, setTitle] = useState<string>(initialValues)
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
-  }
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault()
-        onSubmit(title)
-      }}
-    >
-      <div>Put your form fields here. But for now, just click submit</div>
-      <div>
-        <input type="text" value={title} onChange={handleChange} />
-      </div>
-      <button>Submit</button>
-    </form>
+    <Form initialValues={initialValues} onSubmit={onSubmit}>
+      {({handleSubmit}) => (
+        <form onSubmit={handleSubmit}>
+          <div>Put your form fields here. But for now, just click submit</div>
+          <div>
+            <Field name="title" type="text">
+              {({input}) => (
+                <input {...input} />
+              )}
+            </Field>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      )}
+    </Form>
+
   )
 }
 
