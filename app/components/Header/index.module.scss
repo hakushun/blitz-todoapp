@@ -1,0 +1,32 @@
+.header {
+  width: 100vw
+}
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 1168px;
+}
+
+.navList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navItem {
+  &:not(:first-child) {
+    margin-left: 20px;
+  }
+}
+
+
+.navLink {
+  font-size: 2rem;
+}
+
+.navBtn {
+  font-size: 2rem;
+}
